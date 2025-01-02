@@ -1,18 +1,19 @@
 <template>
   <h1>{{title}}</h1>
-  <br>
-  <input type="text" ref="name">
-  <button @click="handleClick">click me</button>
+  <Modal :header='header' :text='text' theme='sale' />
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import Modal from './components/Modal.vue';
 
 export default {
-  name: "App",
+  name: 'App',
+  components: { Modal },
   data() {
     return {
-      title: "My First Vue.js App"
+      title: 'My First Vue.js App',
+      header: 'Sign in',
+      text: 'Please enter your credentials',
     };
   },
   methods: {
