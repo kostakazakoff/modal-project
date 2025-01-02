@@ -1,16 +1,34 @@
 <template>
   <div>
+
     <h1>{{title}}</h1>
+    <br>
     <button @click="toggleModal">show modal</button>
-    <div v-if="showModal">
-      <Modal
-        :header="header"
-        :text="text"
-        theme="sale"
-        showModal="showModal"
-        @close-modal="toggleModal"
-      />
-    </div>
+    <br>
+    <button @click="toggleModalTwo">show second modal</button>
+
+    <teleport to="#modals" v-if="showModal">
+      <Modal theme="sa" @close-modal="toggleModal">
+        <template v-slot:links>
+          <a href="#">Sign Up Now</a>
+          <a href="#">More Info</a>
+        </template>
+        <h1>Modal Header</h1>
+        <p>Modal Text</p>
+      </Modal>
+    </teleport>
+
+    <teleport to="#modals" v-if="showModalTwo">
+      <Modal @close-modal="toggleModalTwo">
+        <template v-slot:links>
+          <a href="#">Sign Up Now</a>
+          <a href="#">More Info</a>
+        </template>
+        <h1>Second Modal</h1>
+        <p>Second Modal Text</p>
+      </Modal>
+    </teleport>
+
   </div>
 </template>
 
@@ -23,9 +41,8 @@ export default {
   data() {
     return {
       title: "My First Vue.js App",
-      header: "Sign in",
-      text: "Please enter your credentials",
-      showModal: false
+      showModal: false,
+      showModalTwo: false
     };
   },
   methods: {
@@ -34,13 +51,17 @@ export default {
     },
     toggleModal() {
       this.showModal = !this.showModal;
+    },
+    toggleModalTwo() {
+      this.showModalTwo = !this.showModalTwo;
     }
   }
 };
 </script>
 
 <style>
-#app {
+#app,
+#modals {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -49,8 +70,12 @@ export default {
   margin-top: 60px;
 }
 h1 {
-  border-bottom: 1px solid #ddd;
   display: inline-block;
   padding-bottom: 10px;
+}
+button {
+  padding: 8px 16px;
+  margin: 10px;
+  border: none;
 }
 </style>
